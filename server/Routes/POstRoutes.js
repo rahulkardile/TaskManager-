@@ -1,25 +1,60 @@
 import express from "express"
-import Todo from "../Models/Todo.js";
+import Post from "../Models/Post.js";
 import { verifyUser } from "../utils/VerifyUser.js";
 import { errorHandler } from "../utils/errHandler.js";
+import upload from "../utils/Middleware.js";
 
 const routes = express.Router();
 
-routes.post("/new", verifyUser, async (req, res, next) => {
+routes.post("/new", verifyUser, upload, async (req, res, next) => {
     try {
         const data = req.user;
-        const { title, description, date } = req.body;
+        const { title, summary, content } = req.body;
 
-        if (!title, !description, !date) return next(errorHandler(400, "something is mising"));
+        const cover = req.file.path
 
-        const NewTodo = await Todo.create({
+        if (!title, !summary, !content, !cover) return next(errorHandler(400, "something is mising"));
+
+        console.log(cover);
+
+        const NewPost = await Post.create({
             title,
-            description,
-            date,
+            summary,
+            content,
+            cover: cover,
             user: data._id
         })
 
-        res.status(200).json(NewTodo);
+        res.status(200).json(NewPost);
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+routes.get("/get", async (req, res, next) => {
+    try {
+        const Lists = await Post.find()
+        res.status(200).json({
+            success: true,
+            data: Lists
+        })
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+routes.get("/get/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params
+        
+        const Lists = await Post.findById(id)
+
+        res.status(200).json({
+            success: true,
+            data: Lists
+        })
 
     } catch (error) {
         next(error)
@@ -44,9 +79,9 @@ routes.patch("/update/:id", verifyUser, async (req, res, next) => {
         if (status) List.status = status
         if (date) List.date = date
 
-       const data  = await List.save();
+        const data = await List.save();
 
-       
+
 
         res.status(200).json(data)
 
@@ -55,15 +90,7 @@ routes.patch("/update/:id", verifyUser, async (req, res, next) => {
     }
 })
 
-routes.get("/get", verifyUser, async (req, res, next) => {
-    try {
-        const userId = req.user._id;
-        const Lists = await Todo.find({ user: userId })
-        res.status(200).json(Lists)
-    } catch (error) {
-        next(error)
-    }
-})
+
 
 routes.delete("/delete/:id", verifyUser, async (req, res, next) => {
     try {
@@ -76,7 +103,7 @@ routes.delete("/delete/:id", verifyUser, async (req, res, next) => {
 
         await Todo.findByIdAndDelete(id)
         res.status(200).json("delete successfully");
-        
+
     } catch (error) {
         next(error)
     }

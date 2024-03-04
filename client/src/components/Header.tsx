@@ -26,7 +26,7 @@ const dispatch = useDispatch();
       <div className="ml-4">
         <Link to={"/"}>
           <h1 className="text-white flex gap-1 items-center text-3xl font-semibold duration-300  hover:text-orange-500">
-             WixTodo
+             WixBlog
           </h1>
         </Link>
       </div>

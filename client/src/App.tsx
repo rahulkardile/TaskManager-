@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
 import AllTodo from "./Pages/AllTodo";
+import BlogPage from "./Pages/BlogPage";
 
 // Lazy
 const Login = lazy(()=> import("./Pages/Login"))
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/blog/:id" element={<BlogPage />} />
           <Route path="/task" element={<AllTodo />} />
         </Routes>
       </Suspense>

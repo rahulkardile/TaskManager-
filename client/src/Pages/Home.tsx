@@ -1,16 +1,55 @@
 import { useSelector } from "react-redux";
-import AddTask from "../components/AddTask";
 import { RootStates } from "../redux/store";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const user = useSelector((state: RootStates) => state).user;
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    const db = async()=>{
+      const res = await fetch("/api/post/get")
+      const resData = await res.json();
+      
+      if(resData.success === true){
+        setData(resData.data);
+        // toast.success("data has been fetched!")
+      }else{
+        toast.error("Can't fetch data!")
+      }
+    }
+
+    db();
+  },[])
 
   return (
-      <section>
-        {
-          user.currentUser?.name ? <AddTask /> : <h1 className="m-auto  flex justify-center mt-24">Login is needed</h1>
-        }
-        
+    <section>
+
+{
+  data.length > 0 ? data.map((item, i)=>(
+
+    <div className="max-w-[1100px] flex justify-evenly gap-2 flex-row h-[300px] my-5 m-auto" key={i}>
+        <div className="w-[40%] overflow-hidden">
+          <img src={`http://localhost:3300/${item.cover}` || "https://loquesigue.tv/wp-content/uploads/2019/03/img-html.jpg"} alt="img" className="object-cover" />
+        </div>
+        <div className=" w-[50%] h-[200px] flex justify-start my-3 gap-3 flex-col overflow-hidden">
+          <Link to={`/blog/${item?._id}`}>
+            <h1 className="text-xl font-semibold">
+            {item?.title}
+            </h1>
+          </Link>
+          <p className="text-sm h-[70px]">
+            {item?.summary}
+          </p>
+        </div>
+      </div>
+  )) : <h1 className="text-lg m-auto mx-auto my-auto">Loading . . .</h1>
+}
+
+      
+      
     </section>
   );
 };
