@@ -72,7 +72,7 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="bg-black text-white font-semibold p-[10px] w-[75%] rounded-md  duration-300 ease-in-out hover:scale-105"
+          className="bg-indigo-500 text-white font-semibold p-[10px] w-[75%] rounded-md  duration-300 ease-in-out hover:scale-105"
           disabled={false}
         >
           Login

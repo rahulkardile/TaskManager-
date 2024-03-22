@@ -22,10 +22,10 @@ const dispatch = useDispatch();
   }
 
   return (
-    <header className="p-3 bg-black flex justify-between items-center">
+    <header className="p-4 border-b border-indigo-600 bg-gray-100 flex justify-between items-center">
       <div className="ml-4">
         <Link to={"/"}>
-          <h1 className="text-white flex gap-1 items-center text-3xl font-semibold duration-300  hover:text-orange-500">
+          <h1 className="text-indigo-400 flex gap-1 items-center text-3xl font-semibold duration-300">
              WixBlog
           </h1>
         </Link>
@@ -34,23 +34,22 @@ const dispatch = useDispatch();
       <div className="text-white flex items-center gap-4 text-sm mr-10">
         {user.currentUser?.name ? (
           <>
-            <Link to={"/task"} className="duration-200 hover:text-orange-500">
-              My Tasks
-            </Link>
-            <img className="w-8 h-8 rounded-full"  src={img} alt="" />
-            <button onClick={handleLogout}>Logout</button>
+            {/* <img className="w-8 h-8 rounded-full"  src={img} alt="" /> */}
+            <button className="font-semibold duration-200 text-indigo-500 border-[1px] border-indigo-500 p-3 rounded-xl" onClick={handleLogout}>Logout</button>
+            <p className="border border-indigo-800 py-3" />
+            <Link className="bg-indigo-600 p-3 px-8 rounded-xl text-white font-semibold" to={"/create"}>Create</Link>
           </>
         ) : (
           <>
             <Link
               to={"/register"}
-              className="duration-200 hover:text-orange-500 cursor-pointer"
+              className="font-semibold duration-200 text-indigo-500 border-[1px] border-indigo-500 p-3 rounded-xl ease-in-out hover:opacity-80 cursor-pointer"
             >
               Register
             </Link>
 
             <p className="border border-white py-3" />
-            <Link to={"/login"} className="duration-200 hover:text-orange-500">
+            <Link to={"/login"} className="bg-indigo-500 p-3 px-8 rounded-xl duration-300 ease-in-out hover:opacity-80 text-white font-semibold">
               Login
             </Link>
           </>

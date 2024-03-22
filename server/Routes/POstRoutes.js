@@ -12,10 +12,7 @@ routes.post("/new", verifyUser, upload, async (req, res, next) => {
         const { title, summary, content } = req.body;
 
         const cover = req.file.path
-
         if (!title, !summary, !content, !cover) return next(errorHandler(400, "something is mising"));
-
-        console.log(cover);
 
         const NewPost = await Post.create({
             title,

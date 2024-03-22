@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { RootStates } from "../redux/store";
-import { useSelector } from "react-redux";
 
 const AllTodo = () => {
-    const user = useSelector((state: RootStates) => state).user;
-  const [data, setData] = useState([]);
 
   return (
     <section className="bg-green-200 w-full h-full">

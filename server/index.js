@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path from 'path';
 import cors from "cors"
 
 import User from "./Routes/UserRoutes.js"
@@ -15,8 +15,7 @@ app.use(cookieParser());
 
 // for getting json data
 app.use(express.json());
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.resolve();
 
 // for getting form data
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +34,8 @@ try {
 app.use('/uploads', express.static('uploads'))
 app.use("/api/user/", User)
 app.use("/api/post/", PostList)
+
+app.use(express.static(path.join(__dirname, "../client")))
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 400;

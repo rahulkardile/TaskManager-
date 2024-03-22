@@ -4,12 +4,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
-import AllTodo from "./Pages/AllTodo";
 import BlogPage from "./Pages/BlogPage";
 
 // Lazy
 const Login = lazy(()=> import("./Pages/Login"))
 const Register = lazy(()=> import("./Pages/Register"))
+const Create = lazy(()=> import("./Pages/Create"))
 
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/blog/:id" element={<BlogPage />} />
-          <Route path="/task" element={<AllTodo />} />
+          <Route path="/create" element={<Create />} />
         </Routes>
       </Suspense>
       <Toaster position="bottom-center" />

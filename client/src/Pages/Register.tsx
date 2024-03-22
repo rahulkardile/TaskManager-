@@ -87,7 +87,7 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className="bg-black text-white font-semibold p-[10px] w-[75%] rounded-md  duration-300 ease-in-out hover:scale-105"
+          className="bg-indigo-500 text-white font-semibold p-[10px] w-[75%] rounded-md  duration-300 ease-in-out hover:scale-105"
           disabled={false}
         >
           Register
@@ -95,7 +95,7 @@ const Register = () => {
       </form>
 
       <div className="w-full flex flex-col gap-3">
-        <p>
+        <p className="">
           Have an account?
           <Link to={"/login"} className="font-semibold">
            {" "} Login
